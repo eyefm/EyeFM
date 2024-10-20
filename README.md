@@ -1,11 +1,11 @@
-# A Vision-Language Foundation AI Model for Clinical Eyecare Needs: Multi-stage Evaluation in Primary and Specialty Settings
+# Clinically Translatable Eyecare Foundational Model: Design, Validation and Randomized Controlled Trial
 
 ## Contents
 
 1. Requirements
-1. Finetuning of vision module
-1. Pretraining of vision module
-1. Finetuning of vision-language
+2. Environment Setup
+3. Finetuning of vision module
+4. Pretraining of vision module
 5. Pretraining of vision-language
 
 ## Requirements
@@ -27,13 +27,40 @@ ninja>=1.11.1.0
 open-clip-torch>=2.11.0
 ```
 
+## Environment Setup
+
+### Linux System
+
+#### Step 1: download the project
+
+1. Open the terminal in the system.
+2. Clone this repo file to the home path.
+
+```
+git clone https://github.com/eyefm/EyeFM.git
+```
+
+1. change the current directory to the source directory
+
+```
+cd EyeFM
+```
+
+#### Step 2: prepare the running environment and run the code
+
+1. install dependent Python packages
+
+```
+python3 -m pip install --user -r requirements.txt
+```
+
 ## Finetuning of vision module
 
 For the finetuning of vision downstream tasks:
 
 ```
 cd image_module
-python run_finetuning.py --config cfgs/finetune/finetune.yaml --finetune model_weights/checkpoint-199.pth --data_path path/to/images --csv_path path/to/csv --in_domains cfp --label_column DR --nb_classes 5
+python run_finetuning.py --config cfgs/finetune/finetune.yaml
 ```
 
 ## Pretraining of vision module
@@ -43,15 +70,6 @@ For the pretraining of vision module:
 ```
 cd image_module
 python run_pretraining.py --config cfgs/pretrain/pretraining.yaml
-```
-
-## Finetuning of vision-language
-
-For the finetuning of vision-language downstream tasks:
-
-```
-torchrun --nnodes=1 --nproc_per_node=8 --master_port=25001 train/train_mem.py --model_name_or_path /EyeFM/cn_llava  --data_path /EyeFM/ours_cn_task1.json --image_folder / --tune_mm_mlp_adapter True --output_dir /EyeFM/output --vision_tower /EyeFM/transfer_image_encoder
- --mm_vision_select_layer -2 --mm_use_im_start_end True --num_train_epochs 5 --per_device_train_batch_size 1 --per_device_eval_batch_size 2 --gradient_accumulation_steps 8 --evaluation_strategy "no" --save_strategy "steps" --save_steps 1000 --save_total_limit 3 --learning_rate 2e-5 --weight_decay 0. --warmup_ratio 0.03 --lr_scheduler_type "cosine" --logging_steps 1 --model_max_length 1024 --lazy_preprocess True --gradient_checkpointing True --dataloader_num_workers 8 --report_to none --bf16 false --tf32 false
 ```
 
 ## Pretraining of vision-language

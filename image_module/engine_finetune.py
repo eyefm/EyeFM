@@ -165,7 +165,7 @@ def evaluate(data_loader, model, device, task, epoch, mode, num_class, args, sav
         auc_roc = roc_auc_score(true_label_decode_list, np.array(prediction_list), multi_class='ovr', average='macro')
     metric_logger.synchronize_between_processes()
     
-    print(f'Epoch {epoch} {mode} Sklearn Metrics - AUC-roc: {auc_roc:.4f}')
+    print(f'Epoch {epoch} {mode} Sklearn Metrics - AUROC: {auc_roc:.4f}')
 
     if save_confusion_matrix:
         cm = ConfusionMatrix(actual_vector=true_label_decode_list, predict_vector=prediction_decode_list)
@@ -175,3 +175,4 @@ def evaluate(data_loader, model, device, task, epoch, mode, num_class, args, sav
     metric_dict = {'epoch': epoch,'AUROC': auc_roc}
 
     return {k: meter.global_avg for k, meter in metric_logger.meters.items()}, metric_dict
+    

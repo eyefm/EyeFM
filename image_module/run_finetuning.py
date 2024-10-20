@@ -351,6 +351,7 @@ def main(args):
             args.clip_grad, mixup_fn,
             args=args
         )
+        
         val_stats, val_metric = evaluate(data_loader_val, model, device, args.output_dir, epoch, mode='val',
                                           num_class=args.nb_classes, args=args)
         if max_auc < val_metric['AUROC']:
