@@ -93,7 +93,8 @@ python run_finetuning.py --config cfgs/finetune/finetune.yaml --finetune /path/t
 - Arguments specified in the configuration file override the default settings, while command-line arguments override both the default and configuration arguments.
 ### 3. Results interpretation
 Given an input image, the model will output the probability distribution across different disease categories. For example, when provided with an image of diabetic retinopathy (DR), the model will output the probabilities corresponding to each of the five severity levels.
-<img src="./image_module/data/Finetune data for Experiment 1&2/DR/Severe retinopathy.png" alt="Severe retinopathy" style="zoom:50%;" />
+<img src="https://github.com/eyefm/EyeFM/blob/main/image_module/data/Finetune%20data%20for%20Experiment%201%262/DR/Severe%20retinopathy.png" alt="Severe retinopathy" style="zoom:50%;" />
+
 ```
 No retinopathy:0.0
 Mild retinopathy:0.012
@@ -181,5 +182,4 @@ If you are do not have enough GPU memory, you can use LoRA following the intruct
 
 ### 5. Evaluation
 We evaluate models on the report generation and VQA tasks using `Meteor` and `ROUNGE`. The details of the tasks are shown in our paper. 
-
 
