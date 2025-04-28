@@ -3,7 +3,7 @@
 ## Contents
 
 1. Requirements
-2. Environment Setup
+2. Prepare the environment
 3. Finetuning of vision module
 4. Pretraining of vision module
 5. Pretraining of vision-language
@@ -133,19 +133,19 @@ After the pretraining of vision module, you can start vision-language joint trai
 ### Preparing dataset
 Images and texts are stored in JSON files: `train.json`, `val.json`, and `test.json`, corresponding to the training, validation, and testing sets, respectively. 
 
-These files should be placed in the same directory. In each JSON file, `image` refer to the image paths, while `text` denotes the related text. 
+These files should be placed in the same directory. In each JSON file, `image` refer to the image paths, while `conversations` denotes the related text. 
 ```
 {
     "id": "FFA1",
     "image": "FFA1.jpg",
-    "conversatons": [
+    "conversations": [
       {
         "from": "human",
-        "value": "Illustrate the image through a descriptive explanation\n<image>"
+        "value": "What is the expression of the image\n<image>"
       },
       {
         "from": "ophthalmologist",
-        "value": "左眼荧光素眼底血管造影造影早期开始于后极部及周边部可见微小血管瘤状增生，随造影时间延长渐有荧光素渗漏，其中颞下动脉分支处见团状高荧光，迅速有荧光素渗漏，后极部至颞侧周边部可见大量激光斑，渐有荧光素素染色；晚期黄斑区见片状模糊高荧光，视盘荧光渐增强，边界可辨。"
+        "value": "The fluorescein angiography of the left eye shows early microvascular aneurysm-like proliferation starting at the posterior pole and peripheral regions. As the angiography progresses, fluorescein leakage gradually appears, with a cluster of high fluorescence observed at the branch of the temporal artery, followed by rapid fluorescein leakage. A large number of laser spots are seen from the posterior pole to the temporal peripheral area, with gradual fluorescein staining. In the later stages, a patchy, blurry high fluorescence is observed in the macular region, and the fluorescence of the optic disc gradually increases, with the boundary becoming discernible."
       }
     ]
   }
