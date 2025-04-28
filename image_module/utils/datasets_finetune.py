@@ -5,6 +5,7 @@ import pandas as pd
 # import torch
 # import torchvision.transforms.functional as TF
 from torchvision import transforms
+# from torchvision.transforms import InterpolationMode
 from .dataset_folder_finetune import MultiTaskImageFolderFromCSV
 
 
@@ -19,11 +20,12 @@ def build_transform(is_train, args):
     if is_train == 'train':
         transform = transforms.Compose([
             transforms.Resize(trainsize),
+            transforms.RandomResizedCrop(args.input_size, scale=(0.8, 1.0)),
             transforms.RandomHorizontalFlip(),
-            transforms.RandomVerticalFlip(),
+            # transforms.RandomVerticalFlip(),
             transforms.RandomGrayscale(p=0.2),
             transforms.ColorJitter(),
-            # transforms.RandomRotation(degrees=(-180, 180)),
+            transforms.RandomRotation(degrees=(-30, 30)),
             transforms.ToTensor(),
             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
         ])

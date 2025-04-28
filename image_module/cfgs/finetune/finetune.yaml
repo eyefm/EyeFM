@@ -1,10 +1,10 @@
 # Input modality, example: cfp, cfp-oct
 in_domains: cfp
 # The path for storing images
-data_path: 'path/to/image/data'
+data_path: 'path/to/fine-tuning/image'
 
-# A csv file for storing image names.
-csv_path: 'path/to/image/csv/data'
+# The path for storing CSV files.
+csv_path: 'path/to/fine-tuning/csv/file'
 
 # Column name for the image label in csv file
 label_column: 'DR'
