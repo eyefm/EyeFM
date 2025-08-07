@@ -1,14 +1,3 @@
-# --------------------------------------------------------
-# Based on timm, DeiT, DINO, MoCo-v3, BEiT, MAE-priv, MultiMAE and MAE code bases
-# https://github.com/rwightman/pytorch-image-models/tree/master/timm
-# https://github.com/facebookresearch/deit
-# https://github.com/facebookresearch/dino
-# https://github.com/facebookresearch/moco-v3
-# https://github.com/microsoft/unilm/tree/master/beit
-# https://github.com/BUPT-PRIV/MAE-priv
-# https://github.com/EPFL-VILAB/MultiMAE
-# https://github.com/facebookresearch/mae
-# --------------------------------------------------------
 import argparse
 import datetime
 import json
@@ -27,7 +16,6 @@ import torch.backends.cudnn as cudnn
 import yaml
 
 import utils
-from multimae import multimae
 from multimae.criterion import (MaskedCrossEntropyLoss, MaskedL1Loss,
                                 MaskedMSELoss)
 from multimae.input_adapters import PatchedInputAdapter
@@ -53,8 +41,6 @@ def get_args():
                         help='Number of epochs (default: %(default)s)')
     parser.add_argument('--save_ckpt_freq', default=20, type=int,
                         help='Checkpoint saving frequency in epochs (default: %(default)s)')
-
-    parser.add_argument('--freeze_encoder', action='store_true')
 
     # Task parameters
     parser.add_argument('--in_domains', default='', type=str,
@@ -147,7 +133,8 @@ def get_args():
                         help='Training interpolation (random, bilinear, bicubic) (default: %(default)s)')
 
     # Dataset parameters
-    parser.add_argument('--data_path', default='', type=str, help='dataset path')
+    parser.add_argument('--data_path', default='', type=str)
+    parser.add_argument('--csv_path', default='', type=str)
     parser.add_argument('--imagenet_default_mean_and_std', default=True, action='store_true')
 
     # Misc.
@@ -198,8 +185,8 @@ def get_args():
         with open(args_config.config, 'r') as f:
             cfg = yaml.safe_load(f)
             parser.set_defaults(**cfg)
-
-    return parser
+    args = parser.parse_args(remaining)
+    return args
 
 DOMAIN_CONF = {
     'channels': 3,
@@ -317,15 +304,6 @@ def main(args):
         drop_last=True,
     )
 
-    if args.freeze_encoder:
-        for param in model.encoder.parameters():
-            param.requires_grad = False
-        print("Finish freezing the encoder parameters.")
-
-    for name, param in model.named_parameters():
-        if not param.requires_grad:
-            print(name)
-
     model.to(device)
     loss_balancer.to(device)
     model_without_ddp = model
@@ -434,7 +412,7 @@ def train_one_epoch(model: torch.nn.Module, data_loader: Iterable, tasks_loss_fn
     header = 'Epoch: [{}]'.format(epoch)
     print_freq = 10
 
-    for step, (x, _) in enumerate(metric_logger.log_every(data_loader, print_freq, header)):
+    for step, x in enumerate(metric_logger.log_every(data_loader, print_freq, header)):
         # assign learning rate & weight decay for each step
         it = start_steps + step  # global training iteration
         if lr_schedule_values is not None or wd_schedule_values is not None:
@@ -533,7 +511,6 @@ def train_one_epoch(model: torch.nn.Module, data_loader: Iterable, tasks_loss_fn
 
 if __name__ == '__main__':
     opts = get_args()
-    opts = opts.parse_args()
     if opts.output_dir:
         Path(opts.output_dir).mkdir(parents=True, exist_ok=True)
     main(opts)

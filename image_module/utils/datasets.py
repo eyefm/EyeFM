@@ -1,21 +1,13 @@
 import os
-import random
-import cv2
-import matplotlib.pyplot as plt
-import numpy as np
-import torch
-import torchvision.transforms.functional as TF
-from torchvision import datasets, transforms
-
-from .data_constants import (IMAGENET_DEFAULT_MEAN,
-                             IMAGENET_DEFAULT_STD)
-
+from torchvision import transforms
+import pandas as pd
+from .data_constants import (IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD)
 from .dataset_folder import MultiTaskImageFolder
 
 
 class DataAugmentationPretrain(object):
     def __init__(self, args):
-        mean = IIMAGENET_DEFAULT_MEAN
+        mean = IMAGENET_DEFAULT_MEAN
         std = IMAGENET_DEFAULT_STD
 
         transform_train = transforms.Compose([
@@ -39,6 +31,5 @@ class DataAugmentationPretrain(object):
 
 def build_pretraining_dataset(args):
     transform = DataAugmentationPretrain(args)
-    return MultiTaskImageFolder(args.data_path, args.all_domains, transform=transform)
-
-
+    csv_data = pd.read_csv(os.path.join(args.csv_path, 'train.csv'))
+    return MultiTaskImageFolder(args.data_path, args.all_domains, csv_data=csv_data, transform=transform)

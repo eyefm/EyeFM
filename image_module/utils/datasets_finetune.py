@@ -1,11 +1,6 @@
 import os
-# import random
 import pandas as pd
-# import numpy as np
-# import torch
-# import torchvision.transforms.functional as TF
 from torchvision import transforms
-# from torchvision.transforms import InterpolationMode
 from .dataset_folder_finetune import MultiTaskImageFolderFromCSV
 
 

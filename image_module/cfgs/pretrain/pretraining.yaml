@@ -3,9 +3,11 @@ out_domains: cfp-uwf-eyephoto-oct-ffa
 
 model: pretrain_multimae_large
 
-data_path: '/train'
+data_path: 'path/to/pretraining/image/file'
+csv_path: 'path/to/pretraining/csv/file'
+
 resume: ''
-output_dir: '/pretrain'
+output_dir: 'pretrain'
 
 
 input_size: 224
@@ -14,7 +16,6 @@ num_global_tokens: 1
 
 
 # Train
-freeze_encoder: False
 epochs: 800
 batch_size: 100
 save_ckpt_freq: 10

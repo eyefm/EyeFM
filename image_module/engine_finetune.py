@@ -8,7 +8,6 @@ import torch.nn.functional as F
 from timm.data import Mixup
 # from timm.utils import accuracy
 from typing import Iterable, Optional
-import utils
 import utils.misc as misc
 import utils.lr_sched as lr_sched
 from sklearn.metrics import roc_auc_score

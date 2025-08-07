@@ -87,7 +87,7 @@ During fine-tuning, images and labels are stored in CSV files: `train.csv`, `val
 To fine-tune EyeFM on downstream vision tasks, run:
 ```
 cd image_module
-python run_finetuning.py --config cfgs/finetune/finetune.yaml --finetune /path/to/checkpoint --in_domains cfp --epochs 50 --batch_size 16 --blr 0.0005 --input_size 224 --data_path: 'path/to/fine-tuning/image' --csv_path: 'path/to/fine-tuning/csv/file'
+python run_finetuning.py --config cfgs/finetune/finetune.yaml --finetune /path/to/checkpoint --in_domains cfp --epochs 50 --batch_size 16 --blr 0.0005 --input_size 224 --data_path path/to/fine-tuning/image --csv_path path/to/fine-tuning/csv/file
 ```
 - The fine-tuning scripts support both YAML configuration files (e.g., [finetune.yaml](https://github.com/eyefm/EyeFM/blob/main/image_module/cfgs/finetune/finetune.yaml)) and command-line arguments.
 - Arguments specified in the configuration file override the default settings, while command-line arguments override both the default and configuration arguments.
@@ -119,7 +119,7 @@ To complete the pretraining of EyeFM, run:
 
 ```
 cd image_module
-python run_pretraining.py --config cfgs/pretrain/pretraining.yaml --epochs 800 --batch_size 100 --blr 0.0001 --input_size 224 --data_path: 'path/to/pretraining/image'
+python run_pretraining.py --config cfgs/pretrain/pretraining.yaml --epochs 800 --batch_size 100 --blr 0.0001 --input_size 224 --data_path path/to/pretraining/image --csv_path path/to/pretraining/csv
 ```
 
 - The pretraining scripts support both YAML configuration files (e.g., [pretraining.yaml](https://github.com/eyefm/EyeFM/blob/main/image_module/cfgs/pretrain/pretraining.yaml)) and command-line arguments.
