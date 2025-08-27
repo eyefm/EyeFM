@@ -1,4 +1,4 @@
-# Clinically Translatable Eyecare Foundational Model: Design, Validation and Randomized Controlled Trial
+# An eyecare foundation model for clinical assistance: a randomized controlled trial
 
 ## Contents
 
