@@ -1,0 +1,54 @@
+in_domains: cfp-uwf-eyephoto-oct-ffa
+out_domains: cfp-uwf-eyephoto-oct-ffa
+
+model: pretrain_multimae_large
+
+data_path: 'path/to/pretraining/image/file'
+csv_path: 'path/to/pretraining/csv/file'
+
+resume: ''
+output_dir: 'pretrain'
+
+
+input_size: 224
+patch_size: 16
+num_global_tokens: 1
+
+
+# Train
+epochs: 800
+batch_size: 100
+save_ckpt_freq: 10
+num_workers: 16
+extra_norm_pix_loss: True
+warmup_epochs: 40
+
+opt: adamw
+blr: 0.0001
+warmup_lr: 0.000001
+min_lr: 0.
+hflip: 0.5
+loss_on_unmasked: False
+
+
+# Wandb logging
+log_wandb: False
+wandb_project: 'pretrain'
+wandb_entity: ''
+wandb_run_name: pretraining
+
+
+num_encoded_tokens: 225
+decoder_use_task_queries: True
+decoder_use_xattn: True
+
+
+decoder_dim: 256
+decoder_depth: 2
+decoder_num_heads: 8
+
+
+alphas: 1.0
+sample_tasks_uniformly: False
+fp32_output_adapters: ''
+standardize_depth: False

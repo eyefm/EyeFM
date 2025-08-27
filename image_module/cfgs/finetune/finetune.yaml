@@ -1,0 +1,36 @@
+# Input modality, example: cfp, cfp-oct
+in_domains: cfp
+# The path for storing images
+data_path: 'path/to/fine-tuning/image'
+
+# The path for storing CSV files.
+csv_path: 'path/to/fine-tuning/csv/file'
+
+# Column name for the image label in csv file
+label_column: 'DR'
+
+nb_classes: 5
+
+# Finetune from:
+finetune: 'path/to/checkpoint.pth'
+resume: ''
+output_dir: 'output'
+
+# Train
+epochs: 50
+batch_size: 16
+blr: 5e-4
+layer_decay: 0.65
+drop_path: 0.2
+min_lr: 1e-6
+warmup_epochs: 10
+input_size: 224
+weight_decay: 0.05
+
+use_mean_pooling: True
+init_scale: 0.001
+
+# Architecture
+model: multivit_large
+patch_size: 16
+num_global_tokens: 1
