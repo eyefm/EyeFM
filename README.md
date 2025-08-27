@@ -94,8 +94,6 @@ python run_finetuning.py --config cfgs/finetune/finetune.yaml --finetune /path/t
 ### 3. Results interpretation
 Given an input image, the model will output the probability distribution across different disease categories. For example, when provided with an image of diabetic retinopathy (DR), the model will output the probabilities corresponding to each of the five severity levels.
 
-<img src="https://github.com/eyefm/EyeFM/blob/main/image_module/data/Finetune data for Experiment 1&2/DR/Severe retinopathy.png" alt="Severe retinopathy" style="zoom:50%;" />
-
 ```
 No retinopathy:0.0
 Mild retinopathy:0.012
